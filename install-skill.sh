@@ -1,11 +1,11 @@
 #!/bin/sh
 # Install the rai-ast CLI binary and the rai-ast Claude Code skill.
 # One-liner usage:
-#   curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-skill.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-skill.sh | bash
 
 set -e
 
-REPO="renderedai/agent-studio-cli"
+REPO="renderedai/rai-agent-studio-cli"
 SKILL_DIR="${HOME}/.claude/skills/rai-ast"
 SKILL_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/SKILL.md"
 

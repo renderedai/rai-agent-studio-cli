@@ -40,7 +40,7 @@ This will check if you're logged in, walk you through authentication (or registr
 **Standalone skill** (skill only):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-skill.sh | bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-skill.sh | bash
 ```
 
 Installs the binary to `~/.local/bin/rai-ast` and the skill to
@@ -53,13 +53,13 @@ Installs the binary to `~/.local/bin/rai-ast` and the skill to
 **Extension** (recommended — includes context file + skill):
 
 ```bash
-gemini extensions install https://github.com/renderedai/agent-studio-cli
+gemini extensions install https://github.com/renderedai/rai-agent-studio-cli
 ```
 
 **Standalone skill** (skill only):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-gemini-skill.sh | bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-gemini-skill.sh | bash
 ```
 
 Installs the binary and the skill to `~/.gemini/skills/rai-ast/SKILL.md`.
@@ -70,7 +70,7 @@ Restart Gemini CLI to activate.
 ### OpenAI Codex
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-codex-skill.sh | bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-codex-skill.sh | bash
 ```
 
 Installs the binary and the skill to `~/.codex/skills/rai-ast/SKILL.md`.
@@ -83,7 +83,7 @@ Restart Codex to activate.
 ### One-liner (recommended)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash
 ```
 
 This downloads the pre-built binary for your platform, verifies its checksum, and installs it to `~/.local/bin/rai-ast`.
@@ -91,7 +91,7 @@ This downloads the pre-built binary for your platform, verifies its checksum, an
 To install to a custom location:
 
 ```bash
-RENDEREDAI_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash
+RENDEREDAI_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash
 ```
 
 ## Quick Start

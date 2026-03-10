@@ -17,9 +17,9 @@ fi
 
 # Not found — install from GitHub Releases
 echo "[rai-ast plugin] Installing $BINARY CLI..."
-if curl -fsSL https://raw.githubusercontent.com/rai-ast/agent-studio-cli/main/install.sh | sh; then
+if curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | sh; then
     echo "[rai-ast plugin] $BINARY installed to $DEFAULT_INSTALL"
 else
     echo "[rai-ast plugin] WARNING: Could not auto-install $BINARY. Run the installer manually:" >&2
-    echo "  curl -fsSL https://raw.githubusercontent.com/rai-ast/agent-studio-cli/main/install.sh | bash" >&2
+    echo "  curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash" >&2
 fi

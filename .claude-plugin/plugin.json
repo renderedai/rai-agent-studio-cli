@@ -6,8 +6,8 @@
     "name": "Rendered.ai",
     "url": "https://rendered.ai"
   },
-  "homepage": "https://github.com/renderedai/agent-studio-cli",
-  "repository": "https://github.com/renderedai/agent-studio-cli",
+  "homepage": "https://github.com/renderedai/rai-agent-studio-cli",
+  "repository": "https://github.com/renderedai/rai-agent-studio-cli",
   "license": "MIT",
   "keywords": ["renderedai", "agent-studio", "oauth", "cli", "authentication"]
 }

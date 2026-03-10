@@ -1,11 +1,11 @@
 #!/bin/sh
 # Install the rai-ast CLI binary and the rai-ast Gemini CLI skill.
 # One-liner usage:
-#   curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-gemini-skill.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-gemini-skill.sh | bash
 
 set -e
 
-REPO="renderedai/agent-studio-cli"
+REPO="renderedai/rai-agent-studio-cli"
 SKILL_DIR="${HOME}/.gemini/skills/rai-ast"
 SKILL_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/SKILL.md"
 
@@ -38,4 +38,4 @@ echo ""
 echo "Restart Gemini CLI to activate the rai-ast skill."
 echo ""
 echo "Tip: install as a full extension instead (includes context file):"
-echo "  gemini extensions install https://github.com/renderedai/agent-studio-cli"
+echo "  gemini extensions install https://github.com/renderedai/rai-agent-studio-cli"

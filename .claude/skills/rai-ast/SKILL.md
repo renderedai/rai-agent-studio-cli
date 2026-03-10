@@ -37,7 +37,7 @@ elif [ -f /workspace/repos/agent-studio-cli/target/release/rai-ast ]; then
     CLI="/workspace/repos/agent-studio-cli/target/release/rai-ast"
 
 # 3. Try online install (downloads pre-built binary from GitHub Releases)
-elif curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash; then
+elif curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash; then
     CLI="rai-ast"
 
 # 4. Offline fallback — build from source (requires cargo)

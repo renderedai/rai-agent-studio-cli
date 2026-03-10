@@ -25,7 +25,7 @@ echo "CLI=$CLI"
 
 If `CLI_NOT_FOUND`, tell the user the CLI binary is not installed and offer to install it:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash
 ```
 After install, re-resolve the binary. If install fails, stop and report the error.
 

@@ -14,7 +14,7 @@ $HOME/.local/bin/rai-ast               # default install location
 If neither exists, install it:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash
 ```
 
 ## Key Commands

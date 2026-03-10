@@ -1,11 +1,11 @@
 #!/bin/sh
 # Install the rai-ast CLI binary and the rai-ast OpenAI Codex skill.
 # One-liner usage:
-#   curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-codex-skill.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-codex-skill.sh | bash
 
 set -e
 
-REPO="renderedai/agent-studio-cli"
+REPO="renderedai/rai-agent-studio-cli"
 SKILL_DIR="${HOME}/.codex/skills/rai-ast"
 SKILL_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/SKILL.md"
 OPENAI_YAML_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/agents/openai.yaml"

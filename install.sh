@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-REPO="renderedai/agent-studio-cli"
+REPO="renderedai/rai-agent-studio-cli"
 BINARY="rai-ast"
 INSTALL_DIR="${RENDEREDAI_INSTALL_DIR:-$HOME/.local/bin}"
 

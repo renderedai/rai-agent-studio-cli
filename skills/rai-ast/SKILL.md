@@ -37,14 +37,14 @@ elif [ -f "$HOME/.local/bin/rai-ast" ]; then
     CLI="$HOME/.local/bin/rai-ast"
 
 # 3. Try online install (downloads pre-built binary from GitHub Releases)
-elif curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash; then
+elif curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash; then
     CLI="$HOME/.local/bin/rai-ast"
 
 # 4. Offline fallback — build from source (requires cargo)
 elif command -v cargo >/dev/null 2>&1 || [ -x "$HOME/.cargo/bin/cargo" ]; then
     CARGO="${HOME}/.cargo/bin/cargo"
     command -v cargo >/dev/null 2>&1 && CARGO="cargo"
-    git clone https://github.com/renderedai/agent-studio-cli /tmp/agent-studio-cli 2>&1
+    git clone https://github.com/renderedai/rai-agent-studio-cli /tmp/agent-studio-cli 2>&1
     cd /tmp/agent-studio-cli
     $CARGO build --release 2>&1
     CLI="/tmp/agent-studio-cli/target/release/rai-ast"
