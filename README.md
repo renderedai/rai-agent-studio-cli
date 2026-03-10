@@ -27,6 +27,15 @@ Or use `/plugin` and follow the interactive menu.
 This installs the `rai-ast` plugin, which:
 - Auto-installs the `rai-ast` binary on first session start
 - Adds the `/rai-ast:rai-ast` skill to Claude Code
+- Adds the `/rai-ast:setup` command for guided onboarding
+
+After installing, run `/setup` to get started:
+
+```
+/rai-ast:setup
+```
+
+This will check if you're logged in, walk you through authentication (or registration), and show you everything you can do with the CLI.
 
 **Standalone skill** (skill only):
 

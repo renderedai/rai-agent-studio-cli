@@ -12,6 +12,7 @@ The public distribution repo is [renderedai/rai-agent-studio-cli](https://github
 - **`skills/`** — Agent skills (synced to public repo)
 - **`.claude-plugin/`** — Claude Code plugin manifest and marketplace config (synced)
 - **`.claude/skills/`** — Claude Code skill copy (synced)
+- **`.claude/commands/`** — Claude Code slash commands (synced)
 - **`hooks/`** — Plugin hooks for auto-installing the binary (synced)
 - **`install.sh`** — Binary installer script (synced)
 - **`install-skill.sh`**, **`install-gemini-skill.sh`**, **`install-codex-skill.sh`** — Skill installer scripts (synced)
@@ -43,6 +44,7 @@ install-codex-skill.sh
 skills/
 .claude-plugin/
 .claude/skills/
+.claude/commands/
 hooks/
 GEMINI.md
 gemini-extension.json
