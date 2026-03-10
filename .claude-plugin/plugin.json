@@ -1,0 +1,13 @@
+{
+  "name": "rai-ast",
+  "version": "1.0.0",
+  "description": "Rendered.ai Agent Studio CLI integration for Claude Code — OAuth login, registration, and platform authentication.",
+  "author": {
+    "name": "Rendered.ai",
+    "url": "https://rendered.ai"
+  },
+  "homepage": "https://github.com/renderedai/agent-studio-cli",
+  "repository": "https://github.com/renderedai/agent-studio-cli",
+  "license": "MIT",
+  "keywords": ["renderedai", "agent-studio", "oauth", "cli", "authentication"]
+}

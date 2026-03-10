@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "rai-ast",
+  "description": "Rendered.ai Agent Studio CLI plugin for Claude Code — OAuth authentication and platform integration.",
+  "owner": {
+    "name": "Rendered.ai",
+    "email": "support@rendered.ai"
+  },
+  "plugins": [
+    {
+      "name": "rai-ast",
+      "description": "Rendered.ai Agent Studio CLI integration for Claude Code — OAuth login, registration, and platform authentication.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Rendered.ai",
+        "email": "support@rendered.ai"
+      },
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/renderedai/agent-studio-cli"
+    }
+  ]
+}

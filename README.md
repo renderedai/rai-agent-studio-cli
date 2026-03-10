@@ -1,0 +1,222 @@
+# Rendered.ai Agent Studio CLI
+
+A fast, minimal-dependency CLI for managing services, workspaces, volumes, and more on the Rendered.ai Agent Studio platform.
+
+## AI Agent Integration
+
+The `rai-ast` skill uses the [Agent Skills open standard](https://agentskills.io/specification)
+and works across Claude Code, Google Gemini CLI, and OpenAI Codex.
+
+### Claude Code
+
+**Plugin** (recommended — auto-installs binary + skill):
+
+```
+/plugin install https://github.com/renderedai/agent-studio-cli
+```
+
+This installs the `rai-ast` plugin, which:
+- Auto-installs the `rai-ast` binary on first session start
+- Adds the `/rai-ast:rai-ast` skill to Claude Code
+
+**Standalone skill** (skill only):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-skill.sh | bash
+```
+
+Installs the binary to `~/.local/bin/rai-ast` and the skill to
+`~/.claude/skills/rai-ast/SKILL.md`. Reload Claude Code to activate `/rai-ast`.
+
+---
+
+### Google Gemini CLI
+
+**Extension** (recommended — includes context file + skill):
+
+```bash
+gemini extensions install https://github.com/renderedai/agent-studio-cli
+```
+
+**Standalone skill** (skill only):
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-gemini-skill.sh | bash
+```
+
+Installs the binary and the skill to `~/.gemini/skills/rai-ast/SKILL.md`.
+Restart Gemini CLI to activate.
+
+---
+
+### OpenAI Codex
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install-codex-skill.sh | bash
+```
+
+Installs the binary and the skill to `~/.codex/skills/rai-ast/SKILL.md`.
+Restart Codex to activate.
+
+---
+
+## Installation
+
+### One-liner (recommended)
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash
+```
+
+This downloads the pre-built binary for your platform, verifies its checksum, and installs it to `~/.local/bin/rai-ast`.
+
+To install to a custom location:
+
+```bash
+RENDEREDAI_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash
+```
+
+### Build from source
+
+Prerequisites: **Rust** (latest stable) — install via [rustup](https://rustup.rs/)
+
+```bash
+git clone https://github.com/renderedai/agent-studio-cli.git
+cd agent-studio-cli
+cargo build --release
+cp target/release/rai-ast ~/.local/bin/
+```
+
+Or install directly with Cargo:
+
+```bash
+cargo install --path .
+```
+
+## Quick Start
+
+### 1. Authenticate
+
+Log in via browser (OAuth2 PKCE flow):
+
+```bash
+rai-ast auth login
+```
+
+This opens your browser to the Keycloak login page, captures the auth token, and stores it securely in your OS keychain.
+
+To target a specific environment:
+
+```bash
+rai-ast auth login --env dev
+rai-ast auth login --env test
+```
+
+### 2. Verify Your Identity
+
+```bash
+rai-ast auth whoami
+```
+
+### 3. List Workspaces
+
+```bash
+# JSON output (default)
+rai-ast workspaces get
+
+# Table output
+rai-ast workspaces get --format table
+
+# Filter by organization
+rai-ast workspaces get --organization-id <ORG_ID>
+```
+
+### 4. Log Out
+
+```bash
+rai-ast auth logout
+```
+
+## Authentication Methods
+
+The CLI supports multiple auth methods, resolved in this priority order:
+
+| Priority | Method | Usage |
+|----------|--------|-------|
+| 1 | Bearer token | `--bearer-token <TOKEN>` or `RENDEREDAI_BEARER_TOKEN` env var |
+| 2 | API key (CLI) | `--api-key <KEY>` or `RENDEREDAI_API_KEY` env var |
+| 3 | API key (config) | Stored in `~/.rai-ast/config.yaml` |
+| 4 | Keychain token | Stored automatically after `auth login` |
+
+### Using an API Key
+
+```bash
+# Via flag
+rai-ast workspaces get --api-key <YOUR_KEY>
+
+# Via environment variable
+export RENDEREDAI_API_KEY=<YOUR_KEY>
+rai-ast workspaces get
+```
+
+## Environments
+
+| Name | Flag | API |
+|------|------|-----|
+| Production (default) | `--env prod` | `api.rendered.ai` |
+| Test | `--env test` | `api.test.rendered.ai` |
+| Dev | `--env dev` | `api.dev.rendered.ai` |
+
+## Commands
+
+```
+rai-ast auth login       Log in via browser (OAuth2 PKCE)
+rai-ast auth logout      Clear stored credentials
+rai-ast auth whoami      Show current user info
+rai-ast workspaces get   List workspaces
+rai-ast status           Check platform status
+```
+
+Additional commands (`organizations`, `members`, `volumes`, `services`, `api-keys`, `rules`, `schema`) are defined but not yet implemented.
+
+## Global Options
+
+| Flag | Description | Default |
+|------|-------------|---------|
+| `--format <json\|table>` | Output format | `json` |
+| `--env <ENV>` | Target environment | `prod` |
+| `--api-key <KEY>` | API key | — |
+| `--bearer-token <TOKEN>` | Bearer token | — |
+| `-v, --verbose` | Enable verbose logging | off |
+
+## Configuration
+
+Config is stored at `~/.rai-ast/config.yaml`:
+
+```yaml
+apikey: <your-api-key>
+environment: <last-used-auth-url>
+```
+
+## Development
+
+```bash
+# Build (debug)
+cargo build
+
+# Run directly
+cargo run -- auth whoami
+
+# Run tests
+cargo test
+
+# Lint
+cargo clippy
+
+# Format
+cargo fmt
+```
+
+## License
+
+MIT
