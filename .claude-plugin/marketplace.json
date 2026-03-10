@@ -15,10 +15,7 @@
         "name": "Rendered.ai",
         "email": "support@rendered.ai"
       },
-      "source": {
-        "source": "github",
-        "repo": "renderedai/rai-agent-studio-cli"
-      },
+      "source": "./",
       "category": "productivity",
       "homepage": "https://github.com/renderedai/rai-agent-studio-cli"
     }
