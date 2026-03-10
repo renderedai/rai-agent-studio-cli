@@ -81,13 +81,21 @@ if [ "$ACTUAL" != "$EXPECTED" ]; then
     exit 1
 fi
 
-# Install
+# Install binary
 mkdir -p "$INSTALL_DIR"
 chmod +x "$TMP"
 mv "$TMP" "${INSTALL_DIR}/${BINARY}"
 
+# Install reference docs
+DOCS_DIR="$HOME/.rai-ast/docs"
+DOCS_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/SKILL.md"
+mkdir -p "$DOCS_DIR"
+echo "Downloading reference docs..."
+dl_to "$DOCS_URL" "${DOCS_DIR}/rai-ast.md"
+
 echo ""
 echo "Installed to ${INSTALL_DIR}/${BINARY}"
+echo "Reference docs: ${DOCS_DIR}/rai-ast.md"
 
 # PATH hint
 case ":${PATH}:" in

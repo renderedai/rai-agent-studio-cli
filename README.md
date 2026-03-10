@@ -2,6 +2,9 @@
 
 A fast, minimal-dependency CLI for managing services, workspaces, volumes, and more on the Rendered.ai Agent Studio platform.
 
+[Install](#installation)
+[Claude Code](#claude-code) | [Gemini CLI](#google-gemini-cli) | [Codex](#openai-codex) | [CLI Usage](#quick-start)
+
 ## AI Agent Integration
 
 The `rai-ast` skill uses the [Agent Skills open standard](https://agentskills.io/specification)
@@ -11,9 +14,15 @@ and works across Claude Code, Google Gemini CLI, and OpenAI Codex.
 
 **Plugin** (recommended — auto-installs binary + skill):
 
+```bash
+# 1. Add the marketplace (one time)
+/plugin marketplace add https://github.com/renderedai/rai-agent-studio-cli
+
+# 2. Install the plugin
+/plugin install rai-ast
 ```
-/plugin install https://github.com/renderedai/agent-studio-cli
-```
+
+Or use `/plugin` and follow the interactive menu.
 
 This installs the `rai-ast` plugin, which:
 - Auto-installs the `rai-ast` binary on first session start
@@ -74,23 +83,6 @@ To install to a custom location:
 
 ```bash
 RENDEREDAI_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/renderedai/agent-studio-cli/main/install.sh | bash
-```
-
-### Build from source
-
-Prerequisites: **Rust** (latest stable) — install via [rustup](https://rustup.rs/)
-
-```bash
-git clone https://github.com/renderedai/agent-studio-cli.git
-cd agent-studio-cli
-cargo build --release
-cp target/release/rai-ast ~/.local/bin/
-```
-
-Or install directly with Cargo:
-
-```bash
-cargo install --path .
 ```
 
 ## Quick Start
@@ -196,25 +188,6 @@ Config is stored at `~/.rai-ast/config.yaml`:
 ```yaml
 apikey: <your-api-key>
 environment: <last-used-auth-url>
-```
-
-## Development
-
-```bash
-# Build (debug)
-cargo build
-
-# Run directly
-cargo run -- auth whoami
-
-# Run tests
-cargo test
-
-# Lint
-cargo clippy
-
-# Format
-cargo fmt
 ```
 
 ## License
