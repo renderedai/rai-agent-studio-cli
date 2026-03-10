@@ -60,7 +60,7 @@ dl_to "$BINARY_URL" "$TMP"
 # Verify checksum
 echo "Verifying checksum..."
 CHECKSUMS=$(dl "$CHECKSUM_URL")
-EXPECTED=$(echo "$CHECKSUMS" | grep "${BINARY}-${platform}" | cut -d' ' -f1)
+EXPECTED=$(echo "$CHECKSUMS" | grep "  ${BINARY}-${platform}$" | cut -d' ' -f1)
 
 if [ -z "$EXPECTED" ]; then
     echo "Could not find checksum for ${platform}" >&2
