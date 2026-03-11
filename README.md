@@ -29,13 +29,19 @@ This installs the `rai-ast` plugin, which:
 - Adds the `/rai-ast:rai-ast` skill to Claude Code
 - Adds the `/rai-ast:setup` command for guided onboarding
 
-After installing, run `/setup` to get started:
+After installing, reload plugins to activate the new commands (no restart needed):
+
+```
+/reload-plugins
+```
+
+Then run `/setup` to get started:
 
 ```
 /rai-ast:setup
 ```
 
-This will check if you're logged in, walk you through authentication (or registration), and show you everything you can do with the CLI.
+This will check if you're logged in, walk you through authentication (or registration), and help you create your first workspace and server.
 
 **Standalone skill** (skill only):
 
@@ -44,7 +50,7 @@ curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/mai
 ```
 
 Installs the binary to `~/.local/bin/rai-ast` and the skill to
-`~/.claude/skills/rai-ast/SKILL.md`. Reload Claude Code to activate `/rai-ast`.
+`~/.claude/skills/rai-ast/SKILL.md`. Run `/reload-plugins` to activate `/rai-ast` without restarting.
 
 ---
 
@@ -92,6 +98,21 @@ To install to a custom location:
 
 ```bash
 RENDEREDAI_INSTALL_DIR=/usr/local/bin curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash
+```
+
+### Build from source
+
+If the one-liner doesn't work (e.g., restricted network, unsupported platform), you can build from source.
+
+**Dependencies:**
+- [git](https://git-scm.com/downloads)
+- [Rust/cargo](https://rustup.rs) — install with: `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+
+```bash
+git clone https://github.com/renderedai/rai-agent-studio-cli.git
+cd rai-agent-studio-cli
+cargo build --release
+cp target/release/rai-ast ~/.local/bin/
 ```
 
 ## Quick Start
