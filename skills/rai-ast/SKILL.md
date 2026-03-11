@@ -283,32 +283,100 @@ Agent                   Management Server              Keycloak / Deckard
 
 # 3. Onboarding the User
 
-After authentication, get the user into a running server as fast as possible. **Do not explain all platform concepts upfront** — introduce them one at a time, when the user's current task requires it.
+After authentication, get the user into a running server as fast as possible. **The server URL is the deliverable of onboarding — not the workspace ID.** Do not explain all platform concepts upfront. Do not list all available features. Do not ask "what would you like to do next?" — the next step is always: open the IDE.
 
-## Onboarding Flow
+## Post-Auth Checklist (follow this exactly)
 
-### Step 1: Get them running (immediately after auth)
+### Step 1: Confirm organization context
 
-1. Check if they have existing workspaces (`workspaces get`)
-2. If new to the platform, offer two paths:
-   - **"Explore an example"** — point them to the examples marketplace (`https://deckard.rendered.ai/<organizationId>/examples/workspaces/`) to clone a pre-configured workspace
+1. Run `organizations get --format table`
+2. If the user belongs to **multiple organizations**, list them and ask which one to use
+3. Switch if needed with `organizations use --organization-id <ORG_ID>`
+
+**Do not skip this step.** If you default to the wrong org, everything downstream is wrong.
+
+**Important:** Once the organization is confirmed, use `--organization-id <ORG_ID>` on all subsequent commands to scope results to that org. Without it, queries return resources across ALL organizations the user belongs to.
+
+### Step 2: Find or create a workspace
+
+1. Run `workspaces get --organization-id <ORG_ID> --format table`
+2. If the user **has workspaces**, ask which one they want to use (or if they want a new one)
+3. If the user **has no workspaces**, offer two paths:
+   - **"Explore an example"** — point them to the examples marketplace: `https://deckard.rendered.ai/<organizationId>/examples/workspaces/`
    - **"Start fresh"** — create a new workspace with `workspaces create`
-3. Confirm a server is running (`servers get`), start one if needed
-4. Hand them the server URL and tell them to open it
+4. If creating a new workspace, ask only for a name and brief description — keep it simple
 
-At this point the user has a working environment. No need to explain services, volumes, rules, or anything else yet.
+### Step 3: Get the server URL (this is the goal)
 
-### Step 2: Ask what they want to do
+1. Run `servers get --format table`
+2. Find the server associated with the workspace (a server auto-starts when a workspace is created)
+3. If the server is running, construct the URL: `https://<editorId>.tyrell-proxy.prod.rendered.ai/#/workspace`
+4. If the server is stopped, start it with `servers start --editor-id <EDITOR_ID>`, then construct the URL
+5. **Present the server URL to the user immediately.** This is the deliverable.
 
-Once the server is ready, ask a **single question** — don't overwhelm with options:
+### Step 4: Hand off
 
-> Your server is running and ready. What would you like to work on?
+After giving the URL, say something like:
 
-Let the user's answer guide which concept to introduce next.
+> Your workspace "lens-design" is ready, and a server is running for you.
+>
+> Open your IDE here:
+> https://ed-1234567890.tyrell-proxy.prod.rendered.ai/#/workspace
+>
+> Once you're in, your AI assistant can help you find and use services, work with data, and more.
 
-### Step 3: Teach by doing, not by explaining
+**Do NOT:**
+- List all platform features or available commands
+- Ask "what would you like to do next?" — the next step is opening the IDE
+- Show workspace IDs, org IDs, or other technical details unless the user asks
 
-Introduce each concept **at the moment it becomes relevant** to what the user is trying to accomplish:
+**Do:**
+- Make the URL prominent and clickable
+- Keep the message short and actionable
+- Signal that more capabilities are available inside the IDE without listing them all
+
+## Example: Ideal Onboarding Interaction
+
+```
+User: Can you help me get started with Rendered.ai Agent Studio?
+
+Agent: [resolves CLI, checks auth — already logged in]
+
+       Welcome back, Ethan! You're authenticated.
+
+       You belong to multiple organizations:
+       - Rendered.ai Agent Studio
+       - Nullspace
+
+       Which organization would you like to work in?
+
+User: Rendered.ai Agent Studio
+
+Agent: [switches org, checks workspaces — none found]
+
+       You don't have any workspaces yet in this org.
+       Would you like to create a new one, or explore an example
+       workspace from the marketplace?
+
+User: Create a new one for lens design
+
+Agent: [creates workspace, checks servers, constructs URL]
+
+       Your workspace "lens-design" is ready, and a server is
+       running for you.
+
+       Open your IDE here:
+       https://ed-1773262942743.tyrell-proxy.prod.rendered.ai/#/workspace
+
+       Once you're in, your AI assistant can help you find and use
+       services, work with data, and more.
+```
+
+Notice: no feature dump, no "what next?", no IDs shown. The user goes from zero to a running IDE in four exchanges.
+
+## After Onboarding: Teach by Doing
+
+Once the user is on a server, introduce concepts **only when the user's current task requires it**:
 
 | User wants to... | Introduce... | How |
 |---|---|---|
