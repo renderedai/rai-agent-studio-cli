@@ -86,26 +86,35 @@ mkdir -p "$INSTALL_DIR"
 chmod +x "$TMP"
 mv "$TMP" "${INSTALL_DIR}/${BINARY}"
 
-# Install reference docs
 DOCS_DIR="$HOME/.rai-ast/docs"
-DOCS_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/SKILL.md"
-mkdir -p "$DOCS_DIR"
-echo "Downloading reference docs..."
-dl_to "$DOCS_URL" "${DOCS_DIR}/rai-ast.md"
 
-echo ""
-echo "Installed to ${INSTALL_DIR}/${BINARY}"
-echo "Reference docs: ${DOCS_DIR}/rai-ast.md"
+# Install reference docs
+if [ "${RENDEREDAI_SKIP_DOCS:-}" != "1" ]; then
+    DOCS_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/SKILL.md"
+    mkdir -p "$DOCS_DIR"
+    echo "Downloading reference docs..."
+    dl_to "$DOCS_URL" "${DOCS_DIR}/rai-ast.md"
+fi
 
-# PATH hint
-case ":${PATH}:" in
-    *":${INSTALL_DIR}:"*) ;;
-    *)
-        echo ""
-        echo "Add the following to your shell profile to use the CLI:"
-        echo "  export PATH=\"\$PATH:${INSTALL_DIR}\""
-        ;;
-esac
+if [ "${RENDEREDAI_SKIP_PATH_HINT:-}" != "1" ]; then
+    echo ""
+    echo "Installed to ${INSTALL_DIR}/${BINARY}"
+    echo "Reference docs: ${DOCS_DIR}/rai-ast.md"
 
-echo ""
-"${INSTALL_DIR}/${BINARY}" --version
+    # PATH hint
+    case ":${PATH}:" in
+        *":${INSTALL_DIR}:"*) ;;
+        *)
+            echo ""
+            echo "Add the following to your shell profile to use the CLI:"
+            echo "  export PATH=\"\$PATH:${INSTALL_DIR}\""
+            ;;
+    esac
+
+    echo ""
+    "${INSTALL_DIR}/${BINARY}" --version
+else
+    echo ""
+    echo "Installed to ${INSTALL_DIR}/${BINARY}"
+    "${INSTALL_DIR}/${BINARY}" --version
+fi

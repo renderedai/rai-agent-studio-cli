@@ -18,13 +18,22 @@ Before running any command, determine which binary to use:
 # 1. Already on PATH
 if command -v rai-ast >/dev/null 2>&1; then
     CLI="rai-ast"
-# 2. Default install location
+# 2. Claude Code skill directory
+elif [ -f "$HOME/.claude/skills/rai-ast/bin/rai-ast" ]; then
+    CLI="$HOME/.claude/skills/rai-ast/bin/rai-ast"
+# 3. Gemini skill directory
+elif [ -f "$HOME/.gemini/skills/rai-ast/bin/rai-ast" ]; then
+    CLI="$HOME/.gemini/skills/rai-ast/bin/rai-ast"
+# 4. Codex skill directory
+elif [ -f "$HOME/.codex/skills/rai-ast/bin/rai-ast" ]; then
+    CLI="$HOME/.codex/skills/rai-ast/bin/rai-ast"
+# 5. Legacy default install location
 elif [ -f "$HOME/.local/bin/rai-ast" ]; then
     CLI="$HOME/.local/bin/rai-ast"
-# 3. Install from GitHub
+# 6. Install from GitHub
 elif curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install.sh | bash; then
     CLI="$HOME/.local/bin/rai-ast"
-# 4. Offline fallback — build from source (requires git + cargo)
+# 7. Offline fallback — build from source (requires git + cargo)
 elif command -v cargo >/dev/null 2>&1 || [ -x "$HOME/.cargo/bin/cargo" ]; then
     CARGO="${HOME}/.cargo/bin/cargo"
     command -v cargo >/dev/null 2>&1 && CARGO="cargo"

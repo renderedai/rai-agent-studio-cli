@@ -2,8 +2,7 @@
 
 A fast, minimal-dependency CLI for managing services, workspaces, volumes, and more on the Rendered.ai Agent Studio platform.
 
-[Install](#installation)
-[Claude Code](#claude-code) | [Gemini CLI](#google-gemini-cli) | [Codex](#openai-codex) | [CLI Usage](#quick-start)
+[Claude Code](#claude-code) | [Gemini CLI](#google-gemini-cli) | [Codex](#openai-codex) | [CLI Only](#cli-only-linuxmacos) | [CLI Usage](#quick-start)
 
 ## AI Agent Integration
 
@@ -25,7 +24,6 @@ and works across Claude Code, Google Gemini CLI, and OpenAI Codex.
 Or use `/plugin` and follow the interactive menu.
 
 This installs the `rai-ast` plugin, which:
-- Auto-installs the `rai-ast` binary on first session start
 - Adds the `/rai-ast:rai-ast` skill to Claude Code
 - Adds the `/rai-ast:setup` command for guided onboarding
 
@@ -46,11 +44,11 @@ This will check if you're logged in, walk you through authentication (or registr
 **Standalone skill** (skill only):
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-skill.sh | bash
+curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-claude-skill.sh | bash
 ```
 
-Installs the binary to `~/.local/bin/rai-ast` and the skill to
-`~/.claude/skills/rai-ast/SKILL.md`. Run `/reload-plugins` to activate `/rai-ast` without restarting.
+Installs the binary and skill to `~/.claude/skills/rai-ast/`.
+Run `/reload-plugins` to activate `/rai-ast` without restarting.
 
 ---
 
@@ -68,7 +66,7 @@ gemini extensions install https://github.com/renderedai/rai-agent-studio-cli
 curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-gemini-skill.sh | bash
 ```
 
-Installs the binary and the skill to `~/.gemini/skills/rai-ast/SKILL.md`.
+Installs the binary and skill to `~/.gemini/skills/rai-ast/`.
 Restart Gemini CLI to activate.
 
 ---
@@ -79,12 +77,14 @@ Restart Gemini CLI to activate.
 curl -fsSL https://raw.githubusercontent.com/renderedai/rai-agent-studio-cli/main/install-codex-skill.sh | bash
 ```
 
-Installs the binary and the skill to `~/.codex/skills/rai-ast/SKILL.md`.
+Installs the binary and skill to `~/.codex/skills/rai-ast/`.
 Restart Codex to activate.
 
 ---
 
-## Installation
+## CLI Only (Linux/macOS)
+
+For terminal users who want the `rai-ast` binary without AI agent integration.
 
 ### One-liner (recommended)
 
