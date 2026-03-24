@@ -12,10 +12,10 @@ SKILL_URL="https://raw.githubusercontent.com/${REPO}/main/skills/rai-ast/SKILL.m
 
 # ── 1. Install the CLI binary into the skill directory ───────────────────────
 echo "Installing rai-ast CLI..."
-RENDEREDAI_INSTALL_DIR="$BIN_DIR" \
-RENDEREDAI_SKIP_DOCS=1 \
-RENDEREDAI_SKIP_PATH_HINT=1 \
-  curl -fsSL "https://raw.githubusercontent.com/${REPO}/main/install.sh" | sh
+export RENDEREDAI_INSTALL_DIR="$BIN_DIR"
+export RENDEREDAI_SKIP_DOCS=1
+export RENDEREDAI_SKIP_PATH_HINT=1
+curl -fsSL "https://raw.githubusercontent.com/${REPO}/main/install.sh" | sh
 
 # ── 2. Install the Gemini CLI skill ─────────────────────────────────────────
 echo ""
