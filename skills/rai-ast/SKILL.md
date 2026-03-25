@@ -131,10 +131,27 @@ $CLI auth callback \
 
 Use `run_in_background: true` (Bash tool) so the agent continues while the callback waits on SSE.
 
+### Phase 2 Alternative: Non-blocking Status Check
+
+If your client **cannot run background processes**, use `auth status` instead of `auth callback`. It makes a single GET request and returns immediately:
+
+```bash
+$CLI auth status \
+  --instance-id <INSTANCE_ID_FROM_PHASE_1> \
+  --wait-token <WAIT_TOKEN_FROM_PHASE_1> \
+  2>&1
+```
+
+- `[AUTH_COMPLETE]` — tokens stored, user is authenticated (exit code 0)
+- `[AUTH_WAITING]` — user hasn't completed browser flow yet (exit code non-zero)
+- `[AUTH_FAILED]` — error occurred (exit code non-zero)
+
+Call `auth status` on your own schedule — retry until you get `[AUTH_COMPLETE]` or `[AUTH_FAILED]`.
+
 ### Agent Flow
 
 1. Run `auth login` synchronously — parse `[AUTH_URL]`, `[INSTANCE_ID]`, `[WAIT_TOKEN]`
-2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background
+2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background (or use `auth status` if background processes are unavailable)
 3. Present the login link to the user (see "Presenting to the User" below)
 4. Do NOT poll — you will be automatically notified when the background task completes
 5. **Immediately read the task output when notified** — before doing anything else
@@ -166,12 +183,12 @@ $CLI auth register 2>&1
 [WAIT_TOKEN] yyyyyyyy-yyyy-yyyy-yyyy-yyyyyyyyyyyy
 ```
 
-### Phase 2: Same `auth callback` command as login
+### Phase 2: Same `auth callback` (or `auth status`) command as login
 
 ### Agent Flow
 
 1. Run `auth register` synchronously — parse `[REGISTER_URL]`, `[INSTANCE_ID]`, `[WAIT_TOKEN]`
-2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background
+2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background (or use `auth status` if background processes are unavailable)
 3. Present the registration link to the user
 4. Do NOT poll — you will be automatically notified when the background task completes
 5. **Immediately read the task output when notified** — before doing anything else
@@ -641,6 +658,7 @@ GPU support: add `--gpus all` to docker run. Mount source code for rapid iterati
 | `auth whoami` | — | Show current user info |
 | `auth register` | — | Register new account (two-phase, see above) |
 | `auth callback` | `--instance-id`, `--wait-token` | Complete two-phase auth (run in background) |
+| `auth status` | `--instance-id`, `--wait-token` | Non-blocking auth check (single request, returns immediately) |
 
 Options for `auth login`: `--interactive` (open browser directly).
 

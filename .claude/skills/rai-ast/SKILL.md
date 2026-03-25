@@ -11,6 +11,7 @@ Both commands use the management server's PKCE relay and are designed for agents
 
 - **Phase 1** (`auth login` or `auth register`) — exits immediately, prints labeled tokens
 - **Phase 2** (`auth callback`) — run in the background, blocks on SSE until browser flow completes
+- **Phase 2 alternative** (`auth status`) — non-blocking single check, for clients that cannot run background processes
 
 | Command | When to use |
 |---------|-------------|
@@ -129,10 +130,28 @@ $CLI auth callback \
 
 Use `run_in_background: true` (Bash tool) so the agent continues while the callback waits on SSE.
 
+## Phase 2 Alternative: Non-blocking Status Check
+
+If your client **cannot run background processes**, use `auth status` instead of `auth callback`. It makes a single GET request and returns immediately:
+
+```bash
+cd /workspace/repos/agent-studio-cli
+$CLI auth status \
+  --instance-id <INSTANCE_ID_FROM_PHASE_1> \
+  --wait-token <WAIT_TOKEN_FROM_PHASE_1> \
+  2>&1
+```
+
+- `[AUTH_COMPLETE]` — tokens stored, user is authenticated (exit code 0)
+- `[AUTH_WAITING]` — user hasn't completed browser flow yet (exit code non-zero)
+- `[AUTH_FAILED]` — error occurred (exit code non-zero)
+
+Call `auth status` on your own schedule — retry until you get `[AUTH_COMPLETE]` or `[AUTH_FAILED]`.
+
 ## Agent Flow
 
 1. Run `auth login` synchronously — parse `[AUTH_URL]`, `[INSTANCE_ID]`, `[WAIT_TOKEN]`
-2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background
+2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background (or use `auth status` if background processes are unavailable)
 3. Present the login link to the user (see "Presenting to the User" below)
 4. Do NOT poll — you will be automatically notified when the background task completes
 5. **Immediately read the task output when notified** — before doing anything else
@@ -168,9 +187,9 @@ $CLI auth register 2>&1
 [ACTION] Start `auth callback --instance-id xxx --wait-token yyy` in the background, then present REGISTER_URL to the user...
 ```
 
-## Phase 2: Complete Registration (Callback)
+## Phase 2: Complete Registration (Callback or Status)
 
-**The same `auth callback` command is used as for login.** Start it immediately in the background:
+**The same `auth callback` (or `auth status`) command is used as for login.** Start it immediately in the background:
 
 ```bash
 cd /workspace/repos/agent-studio-cli
@@ -183,7 +202,7 @@ $CLI auth callback \
 ## Agent Flow
 
 1. Run `auth register` synchronously — parse `[REGISTER_URL]`, `[INSTANCE_ID]`, `[WAIT_TOKEN]`
-2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background
+2. **Immediately** start `auth callback --instance-id <ID> --wait-token <TOKEN>` in the background (or use `auth status` if background processes are unavailable)
 3. Present the registration link to the user
 4. Do NOT poll — you will be automatically notified when the background task completes
 5. **Immediately read the task output when notified** — before doing anything else
